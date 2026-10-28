@@ -118,6 +118,11 @@ fixed in `specs`, not settable at dispatch time.
   `linux`. A macOS `.app` that opens an interactive shell needs a Terminal.app
   wrapper rather than a bare command, so it is left out rather than shipped
   half-working. `setpaths.sh` works normally on macOS.
+
+  `build.sh` therefore skips `Menu/` entirely on macOS. Shipping the JSON there
+  would leave menuinst with metadata that has nothing enabled for the running
+  platform, and it warns about that on install *and* uninstall
+  (`menuinst/api.py:136`, "Metadata for DIALS is not enabled for darwin").
 * **Windows shortcuts use `terminal: true`** and target `dials_env.bat`, which
   itself ends in `cmd /K` — the same shape as the old `.lnk`. Worth eyeballing
   once on a real Windows install that you get exactly one console window.

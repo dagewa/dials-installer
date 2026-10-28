@@ -62,6 +62,7 @@ jobs:
             dist/*.sh
             dist/*.pkg
             dist/*.exe
+            dist/*.msi
           if-no-files-found: error
 
   release:

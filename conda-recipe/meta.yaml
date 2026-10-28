@@ -27,7 +27,8 @@ requirements:
 test:
   commands:
     - test -f $PREFIX/setpaths.sh                              # [unix]
-    - test -f $PREFIX/Menu/dials-launcher.json                 # [unix]
+    - test -f $PREFIX/Menu/dials-launcher.json                 # [linux]
+    - test ! -e $PREFIX/Menu                                   # [osx]
     - test -x $PREFIX/dialsbin/dials.version                   # [unix]
     - $PREFIX/dialsbin/dials.version                           # [unix]
     - if not exist %PREFIX%\setpaths.bat exit 1                # [win]
