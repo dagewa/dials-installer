@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Forwarders for every DIALS/xia2/dxtbx/cctbx dispatcher found in $PREFIX/bin.
+# Forwarders for every DIALS/xia2/dui2/dxtbx/cctbx dispatcher found in $PREFIX/bin.
 "${PYTHON}" "${RECIPE_DIR}/make_shims.py" --prefix "${PREFIX}" --platform unix
 
 install -m 644 "${RECIPE_DIR}/src/setpaths.sh"  "${PREFIX}/setpaths.sh"

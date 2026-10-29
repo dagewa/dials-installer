@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions
 
-@rem Forwarders for every DIALS/xia2/dxtbx/cctbx dispatcher found in %PREFIX%\Scripts.
+@rem Forwarders for every DIALS/xia2/dui2/dxtbx/cctbx dispatcher found in %PREFIX%\Scripts.
 "%PYTHON%" "%RECIPE_DIR%\make_shims.py" --prefix "%PREFIX%" --platform win || exit /b 1
 
 copy /y "%RECIPE_DIR%\src\setpaths.bat"  "%PREFIX%\setpaths.bat"  || exit /b 1

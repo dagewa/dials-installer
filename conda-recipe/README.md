@@ -5,7 +5,7 @@ packaged so that conda owns it.
 
 | File | Purpose |
 | --- | --- |
-| `dialsbin/<command>` | Forwarder for each DIALS/xia2/dxtbx/cctbx dispatcher |
+| `dialsbin/<command>` | Forwarder for each DIALS/xia2/dui2/dxtbx/cctbx dispatcher |
 | `setpaths.sh`, `setpaths.bat`, `setpaths.ps1` | Put `dialsbin` on `PATH` for the current shell |
 | `dials_env.sh`, `dials_env.bat` | Open a shell with DIALS on `PATH` |
 | `Menu/dials-launcher.json` | menuinst "Launch DIALS environment" entry |

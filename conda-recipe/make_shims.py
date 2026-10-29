@@ -1,6 +1,6 @@
 """Generate the ``dialsbin`` forwarders for the DIALS dispatchers.
 
-The installers deliberately expose only the DIALS/xia2/dxtbx/cctbx commands, so
+The installers deliberately expose only the DIALS/xia2/dui2/dxtbx/cctbx commands, so
 that activating DIALS does not put the whole bundled conda environment on PATH.
 The original post-install scripts did that by copying dispatchers out of
 ``bin``/``Scripts`` into ``dialsbin`` at install time.  Copies go stale as soon
@@ -33,7 +33,7 @@ import sys
 from pathlib import Path
 
 # Command families that make up the user-facing DIALS installation.
-DISPATCHER_PREFIXES = ("dials", "xia2", "dxtbx", "cctbx")
+DISPATCHER_PREFIXES = ("dials", "xia2", "dxtbx", "cctbx", "dui2")
 
 # Directories conda's own activation prepends to PATH on Windows, in order.
 # Applied inside each forwarder so the child process behaves exactly as it

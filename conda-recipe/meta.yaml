@@ -20,9 +20,11 @@ requirements:
     - python
     - dials =={{ version }}
     - xia2
+    - dui2
   run:
     - dials =={{ version }}
     - xia2
+    - dui2
 
 test:
   commands:
@@ -45,7 +47,7 @@ about:
     Ships the pieces that make an installed DIALS usable without putting the
     whole bundled conda environment on PATH:
 
-      * dialsbin/ -- a forwarder for each DIALS, xia2, dxtbx and cctbx command
+      * dialsbin/ -- a forwarder for each DIALS, xia2, dui2, dxtbx and cctbx command
       * setpaths.sh / setpaths.bat / setpaths.ps1 -- per-shell activation
       * dials_env.sh / dials_env.bat -- launch a shell with DIALS on PATH
       * Menu/dials-launcher.json -- a menuinst "Launch DIALS environment" entry
