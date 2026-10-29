@@ -55,7 +55,7 @@ copies achieved, and it removes the need for the commented-out
 the DIALS stack in `host`:
 
 ```bash
-DIALS_VERSION=3.29.0 conda build conda-recipe
+DIALS_VERSION=3.30.1 conda build conda-recipe
 ```
 
 The version pin (`dials =={{ version }}`) means this package is rebuilt for

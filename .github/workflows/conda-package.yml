@@ -16,7 +16,7 @@ on:
       version:
         description: DIALS version to build against
         required: true
-        default: 3.29.0
+        default: 3.30.1
       channel:
         description: >-
           anaconda.org channel (user or organisation) to upload to. Leave empty
@@ -40,7 +40,7 @@ concurrency:
 env:
   # Consumed by conda-recipe/meta.yaml; keep the fallback in step with the
   # default there and in construct.yaml.
-  DIALS_VERSION: ${{ inputs.version || '3.29.0' }}
+  DIALS_VERSION: ${{ inputs.version || '3.30.1' }}
 
 jobs:
   build:
