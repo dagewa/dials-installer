@@ -30,7 +30,8 @@ test:
   commands:
     - test -f $PREFIX/setpaths.sh                              # [unix]
     - test -f $PREFIX/Menu/dials-launcher.json                 # [linux]
-    - test ! -e $PREFIX/Menu                                   # [osx]
+    # Only our own entry: dui2 ships Menu/dui2.json on every platform.
+    - test ! -e $PREFIX/Menu/dials-launcher.json               # [osx]
     - test -x $PREFIX/dialsbin/dials.version                   # [unix]
     - $PREFIX/dialsbin/dials.version                           # [unix]
     - test -x $PREFIX/dialsbin/dui2                            # [unix]
