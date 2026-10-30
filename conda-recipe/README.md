@@ -108,9 +108,13 @@ own dependencies still resolve from conda-forge like everything else.
 shipped by a dependency is created by accident. The `post_install:` lines that
 used to run `post.sh` / `post.bat` are gone.
 
-**The package must be published before the installers are built**, and for the
-same version — the `==` pin means the solve fails otherwise. The channel is
-fixed in `specs`, not settable at dispatch time.
+The channel in that spec comes from the `DIALS_LAUNCHER_CHANNEL` environment
+variable, defaulting to `DiamondLightSource`. The `Build installers` workflow
+builds this recipe on each runner into a local `file://` channel and points
+`DIALS_LAUNCHER_CHANNEL` at it, so the installers always ship the launcher built
+from this checkout and nothing needs publishing first. Building installers any
+other way needs a published package for the same version — the `==` pin means
+the solve fails otherwise.
 
 ## Known limitations
 

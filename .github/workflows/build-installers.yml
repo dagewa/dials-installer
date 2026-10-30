@@ -46,8 +46,41 @@ jobs:
           channels: conda-forge
           conda-remove-defaults: true
 
-      - name: Install constructor
-        run: conda install -y constructor
+      # `conda build` is a subcommand plugin of whichever conda is on PATH, so
+      # conda-build has to go into base; constructor is a plain executable and
+      # goes into the activated environment.
+      - name: Install constructor and conda-build
+        run: |
+          conda install -y -n base conda-build
+          conda install -y constructor
+
+      # construct.yaml reads DIALS_LAUNCHER_CHANNEL, so the installer takes
+      # dials-launcher from the package built below rather than from
+      # anaconda.org. Windows needs a drive-letter file:///D:/... URL.
+      - name: Locate local channel
+        run: |
+          dir="${RUNNER_TEMP}/local-channel"
+          if [[ "${RUNNER_OS}" == "Windows" ]]; then
+            url="file:///$(cygpath -m "${dir}")"
+          else
+            url="file://${dir}"
+          fi
+          echo "LOCAL_CHANNEL_DIR=${dir}" >> "${GITHUB_ENV}"
+          echo "DIALS_LAUNCHER_CHANNEL=${url}" >> "${GITHUB_ENV}"
+
+      # Same channels as construct.yaml, so the launcher is built against the
+      # stack the installer ships (dui2 is only on the ndevenish channel).
+      # The DIALS stack in `host` makes for deep build trees, so keep the build
+      # root short enough to stay clear of the Windows MAX_PATH limit.
+      - name: Build dials-launcher
+        env:
+          DIALS_VERSION: ${{ inputs.version }}
+          CONDA_BLD_PATH: ${{ runner.os == 'Windows' && 'C:\bld' || format('{0}/bld', runner.temp) }}
+        run: |
+          conda build conda-recipe \
+            -c conda-forge -c https://conda.anaconda.org/ndevenish \
+            --output-folder "${LOCAL_CHANNEL_DIR}" --croot "${CONDA_BLD_PATH}"
+          ls -lR "${LOCAL_CHANNEL_DIR}"
 
       - name: Build installers
         env:

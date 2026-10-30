@@ -1,6 +1,6 @@
 # Activate DIALS for the current shell:  . setpaths.sh
 #
-# Only dialsbin goes on PATH -- it holds a forwarder for every DIALS, xia2,
+# Only dialsbin goes on PATH -- it holds a forwarder for every DIALS, xia2, dui2,
 # dxtbx and cctbx command.  The forwarders set up the rest of the environment
 # for the programs they launch, so nothing else from the bundled conda
 # environment needs to be exposed here.

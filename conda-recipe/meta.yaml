@@ -33,10 +33,12 @@ test:
     - test ! -e $PREFIX/Menu                                   # [osx]
     - test -x $PREFIX/dialsbin/dials.version                   # [unix]
     - $PREFIX/dialsbin/dials.version                           # [unix]
+    - test -x $PREFIX/dialsbin/dui2                            # [unix]
     - if not exist %PREFIX%\setpaths.bat exit 1                # [win]
     - if not exist %PREFIX%\Menu\dials-launcher.json exit 1    # [win]
     - if not exist %PREFIX%\dialsbin\dials.version.bat exit 1  # [win]
     - call %PREFIX%\dialsbin\dials.version.bat                 # [win]
+    - if not exist %PREFIX%\dialsbin\dui2.bat exit 1           # [win]
 
 about:
   home: https://dials.github.io/

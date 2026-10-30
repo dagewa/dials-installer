@@ -86,8 +86,12 @@ jobs:
 
       # The DIALS stack in `host` makes for deep build trees, so keep the build
       # root short enough to stay clear of the Windows MAX_PATH limit.
+      # Same channels as construct.yaml: dui2 is only on the ndevenish channel.
       - name: Build package
-        run: conda build conda-recipe --output-folder dist --croot "${CONDA_BLD_PATH}"
+        run: |
+          conda build conda-recipe \
+            -c conda-forge -c https://conda.anaconda.org/ndevenish \
+            --output-folder dist --croot "${CONDA_BLD_PATH}"
         env:
           CONDA_BLD_PATH: ${{ runner.os == 'Windows' && 'C:\bld' || format('{0}/bld', runner.temp) }}
 
