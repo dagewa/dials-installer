@@ -24,8 +24,10 @@ jobs:
             os: ubuntu-latest
           - name: macOS x86_64
             os: macos-26-intel
+          # A pinned label rather than macos-latest, whose pool is often
+          # too busy for the job to be picked up at all.
           - name: macOS arm64
-            os: macos-latest
+            os: macos-15
           - name: Windows x86_64
             os: windows-latest
 
@@ -119,6 +121,10 @@ jobs:
   release:
     name: Draft release
     needs: build
+    # Draft whatever installers did build, rather than nothing when a single
+    # platform fails or never gets a runner. always() rather than !cancelled():
+    # a job that times out waiting for a runner counts as cancelled.
+    if: always()
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -136,3 +142,5 @@ jobs:
           name: DIALS ${{ inputs.version }}
           draft: true
           files: dist/*
+          # No installers at all means every build failed: fail here too.
+          fail_on_unmatched_files: true
