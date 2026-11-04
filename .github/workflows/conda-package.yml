@@ -6,10 +6,12 @@ on:
       - main
     paths:
       - conda-recipe/**
+      - dui2-recipe/**
       - .github/workflows/conda-package.yml
   pull_request:
     paths:
       - conda-recipe/**
+      - dui2-recipe/**
       - .github/workflows/conda-package.yml
   workflow_dispatch:
     inputs:
@@ -84,13 +86,23 @@ jobs:
       - name: Install conda-build
         run: conda install -y -n base conda-build
 
+      # dials-launcher depends on dui2, which is built from dui2-recipe/ as in
+      # build-installers.yml. It goes into its own local channel rather than
+      # dist/, so that only dials-launcher is ever uploaded from here.
       # The DIALS stack in `host` makes for deep build trees, so keep the build
       # root short enough to stay clear of the Windows MAX_PATH limit.
-      # Same channels as construct.yaml: dui2 is only on the ndevenish channel.
       - name: Build package
         run: |
+          dui2_dir="${RUNNER_TEMP}/dui2-channel"
+          if [[ "${RUNNER_OS}" == "Windows" ]]; then
+            dui2_url="file:///$(cygpath -m "${dui2_dir}")"
+          else
+            dui2_url="file://${dui2_dir}"
+          fi
+          conda build dui2-recipe -c conda-forge \
+            --output-folder "${dui2_dir}" --croot "${CONDA_BLD_PATH}"
           conda build conda-recipe \
-            -c conda-forge -c https://conda.anaconda.org/ndevenish \
+            -c "${dui2_url}" -c conda-forge \
             --output-folder dist --croot "${CONDA_BLD_PATH}"
         env:
           CONDA_BLD_PATH: ${{ runner.os == 'Windows' && 'C:\bld' || format('{0}/bld', runner.temp) }}

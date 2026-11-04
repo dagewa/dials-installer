@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://schemas.conda.io/menuinst-1.schema.json",
+  "menu_name": "DUI2",
+  "menu_items": [
+    {
+      "name": "DUI2",
+      "description": "New multi-tasking version of Dui (DIALS User Interface)",
+      "activate": true,
+      "terminal": false,
+      "command": [
+        "{{ PREFIX }}/Scripts/dui2.exe",
+        "ask_for_dir=True"
+      ],
+      "platforms": {
+        "win": {
+          "desktop": false,
+          "command": [
+            "{{ PREFIX }}/Scripts/dui2.exe",
+            "ask_for_dir=True"
+          ]
+        }
+      }
+    }
+  ]
+}

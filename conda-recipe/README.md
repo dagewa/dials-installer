@@ -112,7 +112,8 @@ The channel in that spec comes from the `DIALS_LAUNCHER_CHANNEL` environment
 variable, defaulting to `DiamondLightSource`. The `Build installers` workflow
 builds this recipe on each runner into a local `file://` channel and points
 `DIALS_LAUNCHER_CHANNEL` at it, so the installers always ship the launcher built
-from this checkout and nothing needs publishing first. Building installers any
+from this checkout and nothing needs publishing first. The `dui2` dependency is
+built the same way, from `../dui2-recipe`, just before this one. Building installers any
 other way needs a published package for the same version — the `==` pin means
 the solve fails otherwise.
 

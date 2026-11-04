@@ -1,0 +1,67 @@
+{# Adapted from https://github.com/ndevenish/dui2-feedstock. The package
+   version is the DUI2 release tag without its leading "v", so the two cannot
+   drift apart. #}
+{% set version = environ.get("DUI2_VERSION", "2026.9.21") %}
+
+package:
+  name: dui2
+  version: "{{ version }}"
+
+source:
+  git_url: https://github.com/ccp4/DUI2.git
+  git_rev: v{{ version }}
+
+build:
+  # noarch: pure-python, one build works on every platform. The Windows
+  # Start Menu entry (see menu/dui2.json) is only materialised by menuinst
+  # when the package is *installed* on Windows.
+  noarch: python
+  number: 0
+  # build.sh / bld.bat run pip install and stage the menuinst metadata.
+  entry_points:
+    - dui2_server = dui2.only_server:main
+    - dui2_multi_user_server = dui2.multi_user.http_multi_user_system:main
+    - dui2 = dui2.all_local_all_ram:main
+    - dui2_old_stable = dui2.all_local:main
+    - dui2_client = dui2.only_client:main
+    - dui2_login = dui2.multi_user.client_gui:main
+
+requirements:
+  host:
+    - python >=3.7
+    - pip
+    - setuptools
+    - wheel
+  run:
+    - python >=3.7
+    - requests >2
+    - h5py >=3.7.0
+    # Upstream pyproject pins PySide2; DUI2 has a Qt-binding shim that also
+    # supports PySide6, which is what we ship here.
+    - pyside6
+    # Required for the Windows Start Menu shortcut to be created on install.
+    - menuinst >=2
+
+test:
+  commands:
+    # Confirm the packaged entry-point launchers exist (avoids importing the
+    # GUI, which needs a display / heavy optional deps like dials).
+    - test -f $PREFIX/bin/dui2                       # [unix]
+    - test -f $PREFIX/bin/dui2_server                # [unix]
+    - test -f "$PREFIX/Menu/dui2.json"               # [unix]
+    - if not exist %PREFIX%\\Scripts\\dui2.exe exit 1        # [win]
+    - if not exist %PREFIX%\\Menu\\dui2.json exit 1          # [win]
+    # Metadata is honest (PySide2 pin rewritten to PySide6), so this passes.
+    - pip check
+
+about:
+  home: https://github.com/ccp4/DUI2
+  license: GPL-2.0-only
+  license_file: LICENSE
+  summary: New multi-tasking version of Dui (DIALS User Interface)
+  description: |
+    DUI2 is a multi-tasking GUI front-end for the DIALS crystallographic
+    data-processing toolkit. This conda package is built as noarch python
+    from the upstream GitHub repository, resolving all dependencies from
+    conda-forge and using PySide6 for the Qt bindings.
+  dev_url: https://github.com/ccp4/DUI2
