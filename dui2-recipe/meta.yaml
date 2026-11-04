@@ -49,8 +49,8 @@ test:
     - test -f $PREFIX/bin/dui2                       # [unix]
     - test -f $PREFIX/bin/dui2_server                # [unix]
     - test -f "$PREFIX/Menu/dui2.json"               # [unix]
-    - if not exist %PREFIX%\\Scripts\\dui2.exe exit 1        # [win]
-    - if not exist %PREFIX%\\Menu\\dui2.json exit 1          # [win]
+    - if not exist %PREFIX%\Scripts\dui2.exe exit 1            # [win]
+    - if not exist %PREFIX%\Menu\dui2.json exit 1              # [win]
     # Metadata is honest (PySide2 pin rewritten to PySide6), so this passes.
     - pip check
 
