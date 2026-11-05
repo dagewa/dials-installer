@@ -48,7 +48,7 @@ and not committed; fetch it from `https://raw.githubusercontent.com/dials/dials/
   runner (Linux, macOS Intel, macOS arm64, Windows) it fetches the DIALS `LICENSE`,
   builds dui2 then `dials-launcher` into a local `file://` channel, sets
   `DUI2_CHANNEL` and `DIALS_LAUNCHER_CHANNEL` to it, runs `constructor`, and finally
-  drafts a GitHub release tagged `v<version>`. Nothing is uploaded to anaconda.org,
+  drafts a GitHub release tagged `v<version>`, titled "DIALS <version> + DUI2 <dui2_version>". Nothing is uploaded to anaconda.org,
   so recipe changes take effect in the very next installer build.
 - **`.github/workflows/conda-package.yml`** — builds and tests `dials-launcher`
   (building dui2 first, into a separate channel that is never uploaded) on

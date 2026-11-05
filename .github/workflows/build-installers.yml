@@ -139,7 +139,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ inputs.version }}
-          name: DIALS ${{ inputs.version }}
+          name: DIALS ${{ inputs.version }} + DUI2 ${{ inputs.dui2_version }}
           draft: true
           files: dist/*
           # No installers at all means every build failed: fail here too.
